@@ -17,6 +17,7 @@ using Microsoft.OpenApi.Models;
 namespace API {
     public class Startup {
         private readonly IConfiguration _config;
+        readonly string CorsPolicy = "_corsPolicy";
         public Startup (IConfiguration config) {
             _config = config;
         }
@@ -28,6 +29,14 @@ namespace API {
                 options.UseSqlite (_config.GetConnectionString("DefaultConnection"));
             });
             services.AddControllers ();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: CorsPolicy,
+                    builder => builder.WithOrigins("http://localhost:4200")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
             services.AddSwaggerGen (c => {
                 c.SwaggerDoc ("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
@@ -44,6 +53,8 @@ namespace API {
             app.UseHttpsRedirection ();
 
             app.UseRouting ();
+
+            app.UseCors(CorsPolicy);
 
             app.UseAuthorization ();
 
