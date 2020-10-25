@@ -1,0 +1,1 @@
+An example dating app being built in .Net / Angular from tutorial Build an app with ASPNET Core and Angular from Scratch available on Udemy.
