@@ -32,7 +32,7 @@ namespace API {
             services.AddCors(options =>
             {
                 options.AddPolicy(name: CorsPolicy,
-                    builder => builder.WithOrigins("http://localhost:4200")
+                    builder => builder.WithOrigins("https://localhost:4200")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());
